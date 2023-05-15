@@ -1,0 +1,28 @@
+fragment EpisodeFragment on Episode {
+    id
+    name
+    air_date
+    episode
+}
+
+
+query GetEpisode($id: ID!) {
+    episode(id: $id) {
+        ...EpisodeFragment
+        characters {
+            ...CharacterFragment
+        }
+    }
+}
+
+query GetEpisodes($page: Int, $filter: FilterEpisode) {
+    episodes(page: $page, filter: $filter) {
+        info {
+            pages
+        }
+        results {
+            ...EpisodeFragment
+        }
+    }
+}
+

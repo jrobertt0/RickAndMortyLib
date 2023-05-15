@@ -1,0 +1,26 @@
+fragment LocationFragment on Location {
+    id
+    dimension
+    name
+}
+
+query GetLocation($id: ID!) {
+    location(id: $id) {
+        ...LocationFragment
+        residents  {
+            ...CharacterFragment
+        }
+        type
+    }
+}
+
+query GetLocations($page: Int, $filter: FilterLocation) {
+    locations(page: $page, filter: $filter) {
+        info {
+            pages
+        }
+        results {
+            ...LocationFragment
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaNamespace" : "API",
+  "options" : {
+    "cocoapodsCompatibleImportStatements" : true
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "**/Network/GraphQL/Queries/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/Network/GraphQL/Schema/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./RickAndMortyLib/Network/GraphQL/API",
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "name" : "RickAndMortyLib"
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}
