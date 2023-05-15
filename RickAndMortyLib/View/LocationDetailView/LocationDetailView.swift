@@ -39,7 +39,7 @@ struct LocationDetailView: View {
                         )
                     }
                     
-                    if let residents = viewModel.location?.residents {
+                    if let residents = viewModel.location?.residents, residents.first != nil {
                         Section(header: Text("Residents")) {
                             List(residents, id: \.?.id) { resident in
                                 if let resident = resident {

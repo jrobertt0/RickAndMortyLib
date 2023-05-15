@@ -42,7 +42,7 @@ struct EpisodeDetailView: View {
                     )
                 }
                 
-                if let characters = viewModel.episode?.characters {
+                if let characters = viewModel.episode?.characters, characters.first != nil {
                     Section(header: Text("Characterss")) {
                         List(characters, id: \.?.id) { character in
                             if let character = character {

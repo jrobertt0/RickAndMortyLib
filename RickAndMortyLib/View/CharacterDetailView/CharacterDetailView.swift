@@ -92,7 +92,7 @@ struct CharacterDetailView: View {
                         location: viewModel.character?.origin
                     )
                     
-                    if let episodes = viewModel.character?.episode {
+                    if let episodes = viewModel.character?.episode, episodes.first != nil {
                         Section(header: Text("Episode List")) {
                             List(episodes, id: \.id) { episode in
                                 buildInfoRow(
