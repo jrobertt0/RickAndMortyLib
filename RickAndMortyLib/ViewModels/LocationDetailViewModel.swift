@@ -14,9 +14,15 @@ import Combine
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
+    let repository: LocationRepositoryProtocol
+    
+    init(repository: LocationRepositoryProtocol) {
+        self.repository = repository
+    }
+    
     func fetchLocation(id: String) -> Void {
         do {
-            try LocationRepository.shared.fetchLocation(id: id)
+            try repository.fetchLocation(id: id)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in

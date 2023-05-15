@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterDetailView: View {
     var id: String
-    @StateObject var viewModel = CharacterDetailViewModel()
+    @ObservedObject var viewModel: CharacterDetailViewModel
     
     @EnvironmentObject var coordinator: Coordinator<MainRouter>
     
@@ -105,6 +105,11 @@ struct CharacterDetailView: View {
 
 struct CharacterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailView(id: "1")
+        CharacterDetailView(
+            id: "1",
+            viewModel: CharacterDetailViewModel(
+                repository: CharacterRepositoryMock()
+            )
+        )
     }
 }

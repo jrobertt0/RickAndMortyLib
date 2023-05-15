@@ -20,7 +20,11 @@ extension API.GetCharactersQuery.Data.Characters.Result: CharacterBase {}
 extension API.GetLocationQuery.Data.Location.Resident: CharacterBase {}
 extension API.GetEpisodeQuery.Data.Episode.Character: CharacterBase {}
 
-public class Character {
+public class Character: Equatable{
+    public static func == (lhs: Character, rhs: Character) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String?
     var episode: [Episode]?
     var gender: String?

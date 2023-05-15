@@ -27,17 +27,17 @@ public enum MainRouter: NavigationRouter {
         }
     }
     
-    @ViewBuilder
+    @MainActor @ViewBuilder
     public func view() -> some View {
         switch self {
         case .charactersList:
-            CharactersView()
+            CharactersView(viewModel: CharactersViewModel(repository: CharacterRepository.shared))
         case .characterDetail(id: let id):
-            CharacterDetailView(id: id)
+            CharacterDetailView(id: id, viewModel: CharacterDetailViewModel(repository: CharacterRepository.shared))
         case .episodeDetail(id: let id):
-            EpisodeDetailView(id: id)
+            EpisodeDetailView(id: id, viewModel: EpisodeDetailViewModel(repository: EpisodeRepository.shared))
         case .locationDetail(id: let id):
-            LocationDetailView(id: id)
+            LocationDetailView(id: id, viewModel: LocationDetailViewModel(repository: LocationRepository.shared))
         }
     }
 }

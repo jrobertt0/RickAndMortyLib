@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EpisodeDetailView: View {
     var id: String
-    @StateObject var viewModel = EpisodeDetailViewModel()
+    @ObservedObject var viewModel: EpisodeDetailViewModel
     
     @ViewBuilder func buildInfoRow(title: String, value: String?) -> some View {
         HStack {
@@ -61,6 +61,11 @@ struct EpisodeDetailView: View {
 
 struct EpisodeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeDetailView(id: "1")
+        EpisodeDetailView(
+            id: "1",
+            viewModel: EpisodeDetailViewModel(
+                repository: EpisodeRepositoryMock()
+            )
+        )
     }
 }

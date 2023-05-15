@@ -8,7 +8,12 @@
 import Foundation
 import Combine
 
-class LocationRepository {
+protocol LocationRepositoryProtocol {
+    func fetchLocations(page: Int, filter: API.FilterLocation?) throws -> AnyPublisher<[Location], RequestError>
+    func fetchLocation(id: String) throws -> AnyPublisher<Location, RequestError>
+}
+
+class LocationRepository: LocationRepositoryProtocol {
     static let shared = LocationRepository()
     private init() {}
     

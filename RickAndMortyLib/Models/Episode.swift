@@ -17,7 +17,7 @@ protocol EpisodeBase {
 extension API.GetEpisodesQuery.Data.Episodes.Result: EpisodeBase {}
 extension API.GetCharacterQuery.Data.Character.Episode: EpisodeBase {}
 
-struct Episode {
+struct Episode: Equatable {
     var airDate: String?
     var characters: [Character?]?
     var episode: String?

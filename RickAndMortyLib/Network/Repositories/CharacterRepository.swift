@@ -8,7 +8,12 @@
 import Foundation
 import Combine
 
-class CharacterRepository {
+protocol CharacterRepositoryProtocol {
+    func fetchCharacters(page: Int, filter: API.FilterCharacter?) throws -> AnyPublisher<[Character], RequestError>
+    func fetchCharacter(id: String) throws -> AnyPublisher<Character, RequestError>
+}
+
+public class CharacterRepository: CharacterRepositoryProtocol {
     static let shared = CharacterRepository()
     private init() {}
     

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationDetailView: View {
     var id: String
-    @StateObject var viewModel = LocationDetailViewModel()
+    @ObservedObject var viewModel: LocationDetailViewModel
     
     @ViewBuilder func buildInfoRow(title: String, value: String?) -> some View {
         HStack {
@@ -60,6 +60,11 @@ struct LocationDetailView: View {
 
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(id: "1")
+        LocationDetailView(
+            id: "1",
+            viewModel: LocationDetailViewModel(
+                repository: LocationRepositoryMock()
+            )
+        )
     }
 }

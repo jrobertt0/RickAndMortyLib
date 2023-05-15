@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CharactersView: View {
-    @StateObject var viewModel = CharactersViewModel()
+    @ObservedObject var viewModel: CharactersViewModel
     
     @EnvironmentObject var coordinator: Coordinator<MainRouter>
     
@@ -53,6 +53,6 @@ struct CharactersView: View {
 
 struct CharactersView_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersView()
+        CharactersView(viewModel: CharactersViewModel(repository: CharacterRepositoryMock()))
     }
 }

@@ -14,9 +14,15 @@ import Combine
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
+    let repository: EpisodeRepositoryProtocol
+    
+    init(repository: EpisodeRepositoryProtocol) {
+        self.repository = repository
+    }
+    
     func fetchEpisode(id: String) -> Void {
         do {
-            try EpisodeRepository.shared.fetchEpisode(id: id)
+            try repository.fetchEpisode(id: id)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in

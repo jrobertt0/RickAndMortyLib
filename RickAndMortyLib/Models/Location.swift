@@ -17,7 +17,7 @@ extension API.GetLocationsQuery.Data.Locations.Result: LocationBase {}
 extension API.GetCharacterQuery.Data.Character.Location: LocationBase {}
 extension API.GetCharacterQuery.Data.Character.Origin: LocationBase {}
 
-struct Location {
+struct Location: Equatable {
     var id: String?
     var dimension: String?
     var name: String?

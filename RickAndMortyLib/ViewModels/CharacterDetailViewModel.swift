@@ -14,9 +14,14 @@ import Combine
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
+    let repository: CharacterRepositoryProtocol
+    
+    init(repository: CharacterRepositoryProtocol) {
+        self.repository = repository
+    }
     func fetchCharacter(id: String) -> Void {
         do {
-            try CharacterRepository.shared.fetchCharacter(id: id)
+            try repository.fetchCharacter(id: id)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in

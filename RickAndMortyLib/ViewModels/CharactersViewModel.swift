@@ -22,6 +22,12 @@ struct FilterState: Equatable {
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
+    let repository: CharacterRepositoryProtocol
+    
+    init(repository: CharacterRepositoryProtocol) {
+        self.repository = repository
+    }
+    
     func fetchCharacters(page: Int = 1) -> Void {
         let filterToPerform: API.FilterCharacter? = API.FilterCharacter(
             name: GraphQLNullable.init(
@@ -39,7 +45,7 @@ struct FilterState: Equatable {
         )
         
         do {
-            try CharacterRepository.shared.fetchCharacters(page: page, filter: filterToPerform)
+            try repository.fetchCharacters(page: page, filter: filterToPerform)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in

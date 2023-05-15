@@ -11,6 +11,7 @@ import Combine
 
 enum RequestError: Error {
     case fetchError
+    case excecutionError
 }
 
 class Network {

@@ -8,7 +8,12 @@
 import Foundation
 import Combine
 
-class EpisodeRepository {
+protocol EpisodeRepositoryProtocol {
+    func fetchEpisodes(page: Int, filter: API.FilterEpisode?) throws -> AnyPublisher<[Episode], RequestError>
+    func fetchEpisode(id: String) throws -> AnyPublisher<Episode, RequestError>
+}
+
+class EpisodeRepository: EpisodeRepositoryProtocol {
     static let shared = EpisodeRepository()
     private init() {}
     
