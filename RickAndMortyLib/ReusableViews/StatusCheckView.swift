@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct StatusCheckView<Content: View>: View {
     @Binding var status: StateStatus
     var onErrorMessage: String?
@@ -30,5 +28,4 @@ struct StatusCheckView<Content: View>: View {
             
         }
     }
-    
 }
