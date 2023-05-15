@@ -37,6 +37,7 @@ struct CharactersView: View {
                 if viewModel.stateStatus == .loadingMoreItems {
                     HCenterView {
                         ProgressView()
+                            .padding(.vertical, 15)
                     }
                 } else if viewModel.stateStatus == .noMoreItems {
                     HCenterView {

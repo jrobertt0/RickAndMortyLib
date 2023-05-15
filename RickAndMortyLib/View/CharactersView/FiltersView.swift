@@ -43,10 +43,15 @@ struct FiltersView: View {
                         }
                     }
                 }
-                Button("Clear Filters") {
-                    filters = FilterState()
-                }.padding(.top, 10)
-            }.padding(.top, 20)
+            }
+            .padding(.all, 15)
+            .background()
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .padding(.top, 20)
+            
+            Button("Clear Filters") {
+                filters = FilterState()
+            }.padding(.top, 10)
         }.padding(.horizontal, 40)
     }
 }
