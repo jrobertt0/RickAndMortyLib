@@ -19,8 +19,10 @@ struct FilterState: Equatable {
     @Published var searchText = ""
     @Published var filters = FilterState(gender: .any, status: .any, species: .any)
     
+    var currentPage = 1
+    
     var cancellables = Set<AnyCancellable>()
-    var stateStatus: StateStatus = .loading
+    @Published var stateStatus: StateStatusInfiniteScroll = .loading
     
     let repository: CharacterRepositoryProtocol
     
@@ -28,7 +30,18 @@ struct FilterState: Equatable {
         self.repository = repository
     }
     
-    func fetchCharacters(page: Int = 1) -> Void {
+    func fetchCharacters(resetPage: Bool = true) -> Void {
+        if resetPage {
+            print("Aquiiii")
+            currentPage = 1
+            stateStatus = .loading
+        } else {
+            if stateStatus == .noMoreItems {
+                return
+            }
+            stateStatus = .loadingMoreItems
+        }
+        
         let filterToPerform: API.FilterCharacter? = API.FilterCharacter(
             name: GraphQLNullable.init(
                 stringLiteral: searchText
@@ -45,20 +58,42 @@ struct FilterState: Equatable {
         )
         
         do {
-            try repository.fetchCharacters(page: page, filter: filterToPerform)
+            try repository.fetchCharacters(page: currentPage, filter: filterToPerform)
                 .receive(on: DispatchQueue.main)
+                .delay(for: 1, scheduler: RunLoop.main)
                 .sink(
-                    receiveCompletion: { result in
+                    receiveCompletion: {[weak self] result in
                         switch result {
                         case .finished:
-                            self.stateStatus = self.characters.isEmpty ? .noData : .ready
+                            if self?.stateStatus != .noMoreItems {
+                                self?.stateStatus = self?.characters.isEmpty == true ? .noData : .ready
+                            }
+                           
+                            self?.currentPage += 1
+                            
+                            
+                            print("page")
+                            print((self?.currentPage ?? 2) - 1)
+                            print("count")
+                            print(self?.characters.count ?? 0)
+                            
+
                             break
                         case .failure(let error):
-                            self.stateStatus = .error
+                            self?.stateStatus = .error
                             print(error)
                         }
-                    }, receiveValue: { data in
-                        self.characters = data
+                    }, receiveValue: {[weak self] data in
+                        if resetPage {
+                            self?.characters = data
+                        } else {
+                            if data.count == 0 {
+                                self?.stateStatus = .noMoreItems
+                                return
+                            }
+                            self?.characters.append(contentsOf: data)
+                        }
+                        
                     }
                 )
                 .store(in: &cancellables)

@@ -13,3 +13,12 @@ enum StateStatus {
     case noData
     case error
 }
+
+enum StateStatusInfiniteScroll {
+    case loading
+    case loadingMoreItems
+    case noMoreItems
+    case ready
+    case noData
+    case error
+}

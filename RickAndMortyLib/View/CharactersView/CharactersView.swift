@@ -16,21 +16,45 @@ struct CharactersView: View {
         VStack {
             switch viewModel.stateStatus {
             case .loading:
+                Spacer()
                 ProgressView()
             case .error:
+                Spacer()
                 Text("Unable to get characters")
             case .noData:
+                Spacer()
                 Text("There's no characters to show")
-            case .ready:
-                VStack {
-                    List(viewModel.characters, id: \.id) { value in
+            case .ready, .loadingMoreItems, .noMoreItems:
+                List {
+                    
+                    ForEach(viewModel.characters, id: \.id) { value in
                         CharacterRowView(character: value).onTapGesture {
                             coordinator.show(.characterDetail(id: value.id!))
+                        }.onAppear {
+                            if value.id == viewModel.characters.last?.id && viewModel.stateStatus != .loadingMoreItems {
+                                viewModel.fetchCharacters(resetPage: false)
+                            }
                         }
                     }
-                    FiltersView(filters: $viewModel.filters)
+                    
+                    if viewModel.stateStatus == .loadingMoreItems {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                       
+                    } else if viewModel.stateStatus == .noMoreItems {
+                        HStack {
+                            Spacer()
+                            Text("No more characters to load").font(.footnote).foregroundColor(.gray)
+                            Spacer()
+                        }
+                    }
                 }
             }
+            Spacer()
+            FiltersView(filters: $viewModel.filters)
         }.onAppear(
             perform: {
                 viewModel.fetchCharacters()
