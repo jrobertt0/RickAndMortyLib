@@ -39,24 +39,27 @@ struct LocationDetailView: View {
                         )
                     }
                     
-                    Section(header: Text("Residents")) {
-                        List(viewModel.location?.residents ?? [], id: \.?.id) { resident in
-                            if let resident = resident {
-                                CharacterRowView(character: resident)
+                    if let residents = viewModel.location?.residents {
+                        Section(header: Text("Residents")) {
+                            List(residents, id: \.?.id) { resident in
+                                if let resident = resident {
+                                    CharacterRowView(character: resident)
+                                }
                             }
+                            
                         }
-                        
                     }
+                    
                     
                 }
             }
         }
         .onAppear(
-             perform: {
-                 viewModel.fetchLocation(id: id)
-             }
-         )
-
+            perform: {
+                viewModel.fetchLocation(id: id)
+            }
+        )
+        
     }
 }
 

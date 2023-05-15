@@ -33,7 +33,6 @@ struct CharactersView: View {
                     
                 }
                 
-                
                 if viewModel.stateStatus == .loadingMoreItems {
                     HCenterView {
                         ProgressView()
@@ -72,11 +71,9 @@ struct CharactersView: View {
                 }
                 Spacer()
                 FiltersView(filters: $viewModel.filters)
-            }.onAppear(
-                perform: {
-                    viewModel.fetchCharacters()
-                }
-            )
+            }.onAppear {
+                viewModel.fetchCharacters()
+            }
             .navigationTitle("Characters")
             .searchable(text: $viewModel.searchText)
             .onChange(

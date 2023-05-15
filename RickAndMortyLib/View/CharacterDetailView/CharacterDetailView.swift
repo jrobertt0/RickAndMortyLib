@@ -92,14 +92,16 @@ struct CharacterDetailView: View {
                         location: viewModel.character?.origin
                     )
                     
-                    Section(header: Text("Episode List")) {
-                        List(viewModel.character?.episode ?? [], id: \.id) { episode in
-                            buildInfoRow(
-                                title: episode.name,
-                                value: episode.episode,
-                                showNavIcon: true
-                            ).onTapGesture {
-                                coordinator.show(.episodeDetail(id: episode.id ?? ""))
+                    if let episodes = viewModel.character?.episode {
+                        Section(header: Text("Episode List")) {
+                            List(episodes, id: \.id) { episode in
+                                buildInfoRow(
+                                    title: episode.name,
+                                    value: episode.episode,
+                                    showNavIcon: true
+                                ).onTapGesture {
+                                    coordinator.show(.episodeDetail(id: episode.id ?? ""))
+                                }
                             }
                         }
                     }

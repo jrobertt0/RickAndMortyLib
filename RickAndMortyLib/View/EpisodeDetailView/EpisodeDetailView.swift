@@ -42,15 +42,16 @@ struct EpisodeDetailView: View {
                     )
                 }
                 
-                Section(header: Text("Characterss")) {
-                    List(viewModel.episode?.characters ?? [], id: \.?.id) { character in
-                        if let character = character {
-                            CharacterRowView(character: character)
+                if let characters = viewModel.episode?.characters {
+                    Section(header: Text("Characterss")) {
+                        List(characters, id: \.?.id) { character in
+                            if let character = character {
+                                CharacterRowView(character: character)
+                            }
                         }
+                        
                     }
-                    
                 }
-                
             }
         }
         .onAppear(
