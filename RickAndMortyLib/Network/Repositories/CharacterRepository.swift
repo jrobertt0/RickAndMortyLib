@@ -13,7 +13,7 @@ class CharacterRepository {
     private init() {}
     
     private let network = Network.shared
-
+    
     func fetchCharacters(page: Int, filter: API.FilterCharacter? = nil) throws -> AnyPublisher<[Character], RequestError> {
         let parsedFilter = filter == nil ? GraphQLNullable<API.FilterCharacter>(API.FilterCharacter()) : GraphQLNullable<API.FilterCharacter>(filter!)
         
@@ -22,12 +22,22 @@ class CharacterRepository {
                 page: GraphQLNullable<Int>(integerLiteral: page),
                 filter: parsedFilter
             )
-        ).compactMap(\.characters?.results)
+        )
+        .compactMap(\.characters?.results)
         .flatMap{
             Just(
                 $0.map{ data in Character(fromBase: data) }
             )
         }
+        .eraseToAnyPublisher()
+    }
+    
+    func fetchCharacter(id: String) throws -> AnyPublisher<Character, RequestError> {
+        return network.fetch(
+            query: API.GetCharacterQuery(id: id)
+        )
+        .compactMap(\.character)
+        .map{ Character(from: $0) }
         .eraseToAnyPublisher()
     }
     

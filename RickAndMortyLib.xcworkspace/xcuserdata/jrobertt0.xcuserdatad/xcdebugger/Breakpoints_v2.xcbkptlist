@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "fetchCharacters(page:filter:searchBarText:)"
+            landmarkName = "fetchCharacters(page:)"
             landmarkType = "7">
             <Locations>
                <Location

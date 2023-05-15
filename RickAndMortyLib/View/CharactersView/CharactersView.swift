@@ -25,7 +25,7 @@ struct CharactersView: View {
                 VStack {
                     List(viewModel.characters, id: \.id) { value in
                         CharacterRowView(character: value).onTapGesture {
-                            coordinator.show(.characterDetail(character: value))
+                            coordinator.show(.characterDetail(id: value.id!))
                         }
                     }
                     FiltersView(filters: $viewModel.filters)

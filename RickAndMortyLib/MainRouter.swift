@@ -10,7 +10,7 @@ import SwiftUI
 public enum MainRouter: NavigationRouter {
     
     case charactersList
-    case characterDetail(character: Character)
+    case characterDetail(id: String)
     
     public var transition: NavigationTransitionStyle {
         switch self {
@@ -26,8 +26,8 @@ public enum MainRouter: NavigationRouter {
         switch self {
         case .charactersList:
             CharactersView()
-        case .characterDetail(character: let character):
-            CharacterDetailView(character: character)
+        case .characterDetail(id: let id):
+            CharacterDetailView(id: id)
         }
     }
 }

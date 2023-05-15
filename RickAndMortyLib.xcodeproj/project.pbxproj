@@ -354,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				B777B2332A118C64004EA0DE /* GraphQL */,
-				B7DCBF6B2A10B94400570573 /* Services */,
 				B7DCBF6A2A10B93800570573 /* Repositories */,
 				B79C013D2A101C0700A70930 /* Network.swift */,
 			);
@@ -429,13 +428,6 @@
 				B7DCBF6C2A10B97600570573 /* CharacterRepository.swift */,
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		B7DCBF6B2A10B94400570573 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		F734F52D66F5F99F5E2FDEC3 /* Frameworks */ = {
