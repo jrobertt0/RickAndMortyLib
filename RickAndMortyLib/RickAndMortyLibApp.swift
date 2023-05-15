@@ -7,11 +7,3 @@
 
 import SwiftUI
 
-@main
-struct RickAndMortyLibApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}

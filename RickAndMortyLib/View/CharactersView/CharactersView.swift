@@ -10,6 +10,7 @@ import SwiftUI
 struct CharactersView: View {
     @StateObject var viewModel = CharactersViewModel()
     
+    @EnvironmentObject var coordinator: Coordinator<MainRouter>
     
     var body: some View {
         NavigationView {
@@ -24,12 +25,9 @@ struct CharactersView: View {
                 case .ready:
                     VStack {
                         List(viewModel.characters, id: \.id) { value in
-                            NavigationLink {
-                                CharacterDetailView()
-                            } label: {
-                                CharacterRowView(character: value)//label
+                            CharacterRowView(character: value).onTapGesture {
+                                coordinator.show(.characterDetail(character: Character.init(example: true)))
                             }
-                            
                         }
                         FiltersView()
                     }

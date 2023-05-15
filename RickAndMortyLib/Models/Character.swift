@@ -20,7 +20,7 @@ extension API.GetCharactersQuery.Data.Characters.Result: CharacterBase {}
 extension API.GetLocationQuery.Data.Location.Resident: CharacterBase {}
 extension API.GetEpisodeQuery.Data.Episode.Character: CharacterBase {}
 
-class Character {
+public class Character {
     var id: String?
     var episode: [Episode]?
     var gender: String?
