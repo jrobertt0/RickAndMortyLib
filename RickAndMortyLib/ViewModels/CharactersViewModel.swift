@@ -59,7 +59,6 @@ struct FilterState: Equatable {
         do {
             try repository.fetchCharacters(page: currentPage, filter: filterToPerform)
                 .receive(on: DispatchQueue.main)
-                .delay(for: 1, scheduler: RunLoop.main)
                 .sink(
                     receiveCompletion: {[weak self] result in
                         switch result {

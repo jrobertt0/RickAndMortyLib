@@ -30,8 +30,8 @@
             filePath = "RickAndMortyLib/ViewModels/CharactersViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "fetchCharacters(resetPage:)"
             landmarkType = "7">
             <Locations>

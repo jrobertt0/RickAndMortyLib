@@ -15,7 +15,7 @@ struct CharactersView: View {
     @ViewBuilder func buildBody() -> some View{
         ScrollView {
             LazyVStack {
-                ForEach(viewModel.characters, id: \.id) { value in
+                ForEach(viewModel.characters, id: \.strongId) { value in
                     CharacterRowView(
                         character: value,
                         showNavIcon: true

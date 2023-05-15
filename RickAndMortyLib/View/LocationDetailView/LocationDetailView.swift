@@ -53,7 +53,7 @@ struct LocationDetailView: View {
                     
                 }
             }
-        }
+        }.navigationTitle("Location")
         .onAppear(
             perform: {
                 viewModel.fetchLocation(id: id)

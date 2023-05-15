@@ -54,6 +54,7 @@ struct EpisodeDetailView: View {
                 }
             }
         }
+        .navigationTitle("Episode")
         .onAppear(
             perform: {
                 viewModel.fetchEpisode(id: id)

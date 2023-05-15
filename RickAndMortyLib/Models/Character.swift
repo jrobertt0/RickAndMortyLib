@@ -21,12 +21,12 @@ extension API.GetLocationQuery.Data.Location.Resident: CharacterBase {}
 extension API.GetEpisodeQuery.Data.Episode.Character: CharacterBase {}
 extension API.GetCharacterQuery.Data.Character: CharacterBase {}
 
-public class Character: Equatable{
+public class Character: Equatable, Identifiable {
     public static func == (lhs: Character, rhs: Character) -> Bool {
         lhs.id == rhs.id
     }
-    
-    var id: String?
+    public var strongId: UUID
+    public var id: String?
     var episode: [Episode]?
     var gender: String?
     var image: String?
@@ -38,6 +38,7 @@ public class Character: Equatable{
     var type: String?
     
     init(from character: API.GetCharacterQuery.Data.Character) {
+        self.strongId = UUID()
         assignValues(character: character)
         self.type = character.type
         self.episode = character.episode.filter{ $0 != nil }.map{ Episode(fromBase: $0!) }
@@ -50,15 +51,18 @@ public class Character: Equatable{
     }
     
     init(fromBase character: CharacterBase?) {
+        self.strongId = UUID()
         assignValues(character: character)
     }
     
     init(fromList character: API.GetCharactersQuery.Data.Characters.Result?) {
+        self.strongId = UUID()
         assignValues(character: character)
         self.location = Location(fromBase: character?.location)
     }
     
     init(example: Bool) {
+        self.strongId = UUID()
         if example {
             self.id = "1"
             self.gender = "Male"
