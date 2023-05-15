@@ -51,7 +51,7 @@ public class Character {
         self.type = character.type
     }
     
-    init(fromBase character: CharacterBase?) {
+    init(from character: CharacterBase?) {
         self.id = character?.id
         self.name = character?.name
         self.gender = character?.gender

@@ -26,17 +26,17 @@ struct Episode {
     
     init(from episode: API.GetEpisodeQuery.Data.Episode) {
         self.airDate = episode.air_date
-        self.characters = episode.characters.filter{ $0 != nil }.map{ Character(fromBase: $0!) }
+        self.characters = episode.characters.filter{ $0 != nil }.map{ Character(from: $0!) }
         self.episode = episode.episode
         self.id = episode.id
         self.name = episode.name
     }
     
-    init(from episode: EpisodeBase) {
-        self.airDate = episode.air_date
-        self.episode = episode.episode
-        self.id = episode.id
-        self.name = episode.name
+    init(from episode: EpisodeBase?) {
+        self.airDate = episode?.air_date
+        self.episode = episode?.episode
+        self.id = episode?.id
+        self.name = episode?.name
     }
     
     init(example: Bool) {

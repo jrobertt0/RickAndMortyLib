@@ -1,5 +1,5 @@
 //
-//  CharacterDetail.swift
+//  EpisodeDetailViewModel.swift
 //  RickAndMortyLib
 //
 //  Created by Jose Roberto de Leon Garcia on 14/05/23.
@@ -8,28 +8,28 @@
 import Foundation
 import Combine
 
-@MainActor class CharacterDetailViewModel: ObservableObject {
-    @Published private(set) var character: Character?
+@MainActor class EpisodeDetailViewModel: ObservableObject {
+    @Published private(set) var episode: Episode?
     
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
-    func fetchCharacter(id: String) -> Void {
+    func fetchEpisode(id: String) -> Void {
         do {
-            try CharacterRepository.shared.fetchCharacter(id: id)
+            try EpisodeRepository.shared.fetchEpisode(id: id)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in
                         switch result {
                         case .finished:
-                            self.stateStatus = self.character == nil ? .noData : .ready
+                            self.stateStatus = self.episode == nil ? .noData : .ready
                             break
                         case .failure(let error):
                             self.stateStatus = .error
                             print(error)
                         }
                     }, receiveValue: { data in
-                        self.character = data
+                        self.episode = data
                     }
                 )
                 .store(in: &cancellables)

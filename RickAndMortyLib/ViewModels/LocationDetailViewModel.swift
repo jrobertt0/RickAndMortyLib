@@ -1,5 +1,5 @@
 //
-//  CharacterDetail.swift
+//  LocationDetailViewModel.swift
 //  RickAndMortyLib
 //
 //  Created by Jose Roberto de Leon Garcia on 14/05/23.
@@ -8,28 +8,28 @@
 import Foundation
 import Combine
 
-@MainActor class CharacterDetailViewModel: ObservableObject {
-    @Published private(set) var character: Character?
+@MainActor class LocationDetailViewModel: ObservableObject {
+    @Published private(set) var location: Location?
     
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
-    func fetchCharacter(id: String) -> Void {
+    func fetchLocation(id: String) -> Void {
         do {
-            try CharacterRepository.shared.fetchCharacter(id: id)
+            try LocationRepository.shared.fetchLocation(id: id)
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { result in
                         switch result {
                         case .finished:
-                            self.stateStatus = self.character == nil ? .noData : .ready
+                            self.stateStatus = self.location == nil ? .noData : .ready
                             break
                         case .failure(let error):
                             self.stateStatus = .error
                             print(error)
                         }
                     }, receiveValue: { data in
-                        self.character = data
+                        self.location = data
                     }
                 )
                 .store(in: &cancellables)

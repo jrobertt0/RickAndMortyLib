@@ -29,15 +29,15 @@ struct Location {
         self.dimension = location.dimension
         self.name = location.name
         self.residents = location.residents.filter {$0 != nil}.map({ resident in
-          return Character(fromBase: resident!)
+          return Character(from: resident!)
         })
         self.type = location.type
     }
     
-    init(from location: LocationBase) {
-        self.id = location.id
-        self.dimension = location.dimension
-        self.name = location.name
+    init(from location: LocationBase?) {
+        self.id = location?.id
+        self.dimension = location?.dimension
+        self.name = location?.name
     }
     
     init(example: Bool) {

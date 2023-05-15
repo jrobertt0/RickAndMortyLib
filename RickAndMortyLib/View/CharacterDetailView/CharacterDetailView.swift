@@ -11,6 +11,8 @@ struct CharacterDetailView: View {
     var id: String
     @StateObject var viewModel = CharacterDetailViewModel()
     
+    @EnvironmentObject var coordinator: Coordinator<MainRouter>
+    
     @ViewBuilder func buildInfoRow(title: String, value: String?) -> some View {
         HStack {
             Text("\(title) ")
@@ -29,26 +31,25 @@ struct CharacterDetailView: View {
                 title: "Dimension",
                 value: location?.dimension
             )
+        }.onTapGesture {
+            coordinator.show(.locationDetail(id: location?.id ?? ""))
         }
     }
     
     var body: some View {
         VStack {
-            switch viewModel.stateStatus {
-            case .loading:
-                ProgressView()
-            case .error:
-                Text("Unable to get characters")
-            case .noData:
-                Text("There's no characters to show")
-            case .ready:
+            StatusCheckView(
+                status: $viewModel.stateStatus,
+                onErrorMessage: "Unable to get characters",
+                onNoDataMessage: "There are no characters to show"
+            ) {
                 Form {
                     Section {
                         HStack {
                             Spacer()
                             AsyncCircleImage(
                                 radius: 100,
-                                image: viewModel.character!.image
+                                image: viewModel.character?.image
                             )
                             Spacer()
                         }
@@ -58,34 +59,37 @@ struct CharacterDetailView: View {
                     Section(header: Text("General Information")) {
                         buildInfoRow(
                             title: "Name",
-                            value: viewModel.character!.name
+                            value: viewModel.character?.name
                         )
                         buildInfoRow(
                             title: "Gender",
-                            value: viewModel.character!.gender
+                            value: viewModel.character?.gender
                         )
                         buildInfoRow(
                             title: "Species",
-                            value: viewModel.character!.species
+                            value: viewModel.character?.species
                         )
                     }
                     
                     buildLocationSection(
                         title: "Current Location",
-                        location: viewModel.character!.location
+                        location: viewModel.character?.location
                     )
                     
                     buildLocationSection(
                         title: "Origin Location",
-                        location: viewModel.character!.origin
+                        location: viewModel.character?.origin
                     )
                     
                     Section(header: Text("Episode List")) {
-                        ForEach(viewModel.character!.episode ?? [], id: \.id) { episode in
-                            buildInfoRow(
-                                title: episode.name ?? "",
-                                value: episode.episode
-                            )
+                        List(viewModel.character?.episode ?? [], id: \.id) { episode in
+                            HStack {
+                                Text("\(episode.name ?? "") ")
+                                Spacer()
+                                Text(episode.episode ?? "Unknown")
+                            }.onTapGesture {
+                                coordinator.show(.episodeDetail(id: episode.id ?? ""))
+                            }
                         }
                     }
                 }
@@ -93,7 +97,7 @@ struct CharacterDetailView: View {
         }
        .onAppear(
             perform: {
-                viewModel.fetchCharacters(id: id)
+                viewModel.fetchCharacter(id: id)
             }
         )
     }

@@ -26,7 +26,7 @@ class CharacterRepository {
         .compactMap(\.characters?.results)
         .flatMap{
             Just(
-                $0.map{ data in Character(fromBase: data) }
+                $0.map{ data in Character(from: data) }
             )
         }
         .eraseToAnyPublisher()
