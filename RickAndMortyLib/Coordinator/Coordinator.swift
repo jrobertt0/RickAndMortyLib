@@ -14,7 +14,6 @@ open class Coordinator<Router: NavigationRouter>: ObservableObject {
     
     public init(navigationController: UINavigationController = .init(), startingRoute: Router? = nil) {
         self.navigationController = navigationController
-        self.navigationController.setNavigationBarHidden(true, animated: false)
         self.startingRoute = startingRoute
     }
     
@@ -27,6 +26,10 @@ open class Coordinator<Router: NavigationRouter>: ObservableObject {
         let view = route.view()
         let viewWithCoordinator = view.environmentObject(self)
         let viewController = UIHostingController(rootView: viewWithCoordinator)
+        self.navigationController.navigationBar.prefersLargeTitles = true
+        self.navigationController.title = viewController.title
+
+        
         switch route.transition {
         case .push:
             navigationController.pushViewController(viewController, animated: animated)

@@ -26,8 +26,8 @@ public enum MainRouter: NavigationRouter {
         switch self {
         case .charactersList:
             CharactersView()
-        case .characterDetail(character: _):
-            CharacterDetailView()
+        case .characterDetail(character: let character):
+            CharacterDetailView(character: character)
         }
     }
 }

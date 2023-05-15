@@ -8,13 +8,35 @@
 import SwiftUI
 
 struct CharacterDetailView: View {
+    var character: Character
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color(uiColor: .systemGroupedBackground).ignoresSafeArea()
+            VStack {
+                RoundedRectangle(cornerRadius: 10).overlay(alignment: .center) {
+                    AsyncCircleImage(
+                        radius: 100,
+                        image: character.image
+                    )
+                }
+                .foregroundColor(.white)
+                .frame(height: 250)
+                .padding(.horizontal, 20)
+          
+                
+                Form {
+                    Section {
+                        Label("Text", systemImage: "heart")
+                    }
+                }
+            }
+        }
     }
 }
 
 struct CharacterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailView()
+        CharacterDetailView(character: Character.init(example: true))
     }
 }

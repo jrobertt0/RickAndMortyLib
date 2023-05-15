@@ -8,30 +8,35 @@
 import Foundation
 import Combine
 
+struct FilterState: Equatable {
+    var gender: GenderFilter = .any
+    var status: StatusFilter = .any
+    var species: SpeciesFilter = .any
+}
+
 @MainActor class CharactersViewModel: ObservableObject {
     @Published private(set) var characters: [Character] = []
     @Published var searchText = ""
+    @Published var filters = FilterState(gender: .any, status: .any, species: .any)
     
     var cancellables = Set<AnyCancellable>()
     var stateStatus: StateStatus = .loading
     
-    func fetchCharacters(page: Int = 1, filter: API.FilterCharacter? = nil) -> Void {
-        var filterToPerform: API.FilterCharacter? = nil
-        if let filter = filter {
-            filterToPerform = API.FilterCharacter(
-                name: GraphQLNullable.init(
-                    stringLiteral: searchText)
-                ,
-                status: filter.status,
-                species: filter.species,
-                gender: filter.gender
-            )
-        } else {
-            filterToPerform = API.FilterCharacter(
-                name: GraphQLNullable.init(
-                    stringLiteral: searchText)
-                )
-        }
+    func fetchCharacters(page: Int = 1) -> Void {
+        let filterToPerform: API.FilterCharacter? = API.FilterCharacter(
+            name: GraphQLNullable.init(
+                stringLiteral: searchText
+            ),
+            status: filters.status != .any ? GraphQLNullable.init(
+                stringLiteral: filters.status.rawValue
+            ) : nil,
+            species: filters.species != .any ? GraphQLNullable.init(
+                stringLiteral: filters.species.rawValue
+            ) : nil,
+            gender: filters.gender != .any ? GraphQLNullable.init(
+                stringLiteral: filters.gender.rawValue
+            ) : nil
+        )
         
         do {
             try CharacterRepository.shared.fetchCharacters(page: page, filter: filterToPerform)

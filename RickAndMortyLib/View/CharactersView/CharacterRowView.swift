@@ -12,14 +12,10 @@ struct CharacterRowView: View {
     
     var body: some View {
         HStack{
-            AsyncImage.init(url: URL(string: character.image ?? "")) { image in
-               image.resizable()
-                    .frame(width: 40, height: 40)
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(Circle())
-            } placeholder: {
-                ProgressView().frame(width: 40, height: 40)
-            }.padding(.trailing, 10)
+            AsyncCircleImage(
+                radius: 20,
+                image: character.image
+            ).padding(.trailing, 10)
             
             VStack(alignment: .leading) {
                 Text(character.name ?? "Unknown").font(.body)
@@ -40,7 +36,7 @@ struct CharacterRowView: View {
                     case .some(.unknown):
                         Image(systemName: "questionmark")
                             .foregroundColor(.gray.opacity(0.8)).padding(.trailing, 5)
-                    case .none:
+                    default:
                         Image(systemName: "questionmark")
                             .foregroundColor(.gray.opacity(0.8))
                     }

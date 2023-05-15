@@ -10,6 +10,7 @@ import Foundation
 enum GenderFilter: String, CaseIterable, Identifiable {
     var id : String { UUID().uuidString }
     
+    case any = "Any"
     case male = "Male"
     case female = "Female"
     case genderless = "GenderLess"
@@ -19,6 +20,7 @@ enum GenderFilter: String, CaseIterable, Identifiable {
 enum StatusFilter: String, CaseIterable, Identifiable {
     var id : String { UUID().uuidString }
     
+    case any = "Any"
     case alive = "Alive"
     case dead = "Dead"
     case unknown = "unknown"
@@ -27,8 +29,9 @@ enum StatusFilter: String, CaseIterable, Identifiable {
 enum SpeciesFilter: String, CaseIterable, Identifiable {
     var id : String { UUID().uuidString }
     
-    case human = "Male"
-    case alien = "Female"
+    case any = "Any"
+    case human = "Human"
+    case alien = "Alien"
     case humanoid = "Humanoid"
     case poopybutthole = "Poopybutthole"
     case robot = "Robot"

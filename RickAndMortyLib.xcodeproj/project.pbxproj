@@ -39,6 +39,7 @@
 		B777B2722A118C64004EA0DE /* FilterEpisode.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777B2562A118C64004EA0DE /* FilterEpisode.graphql.swift */; };
 		B777B2732A118C64004EA0DE /* FilterCharacter.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777B2572A118C64004EA0DE /* FilterCharacter.graphql.swift */; };
 		B777B2742A118C64004EA0DE /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = B777B2582A118C64004EA0DE /* SchemaMetadata.graphql.swift */; };
+		B78F6D742A11C9EE00C1C02A /* AsyncCircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78F6D732A11C9EE00C1C02A /* AsyncCircleImage.swift */; };
 		B79C01152A10140900A70930 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B79C01142A10140900A70930 /* Assets.xcassets */; };
 		B79C01182A10140900A70930 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B79C01172A10140900A70930 /* Preview Assets.xcassets */; };
 		B79C013E2A101C0700A70930 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79C013D2A101C0700A70930 /* Network.swift */; };
@@ -106,6 +107,7 @@
 		B777B2562A118C64004EA0DE /* FilterEpisode.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterEpisode.graphql.swift; sourceTree = "<group>"; };
 		B777B2572A118C64004EA0DE /* FilterCharacter.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCharacter.graphql.swift; sourceTree = "<group>"; };
 		B777B2582A118C64004EA0DE /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
+		B78F6D732A11C9EE00C1C02A /* AsyncCircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCircleImage.swift; sourceTree = "<group>"; };
 		B79C010D2A10140800A70930 /* RickAndMortyLib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyLib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79C01142A10140900A70930 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B79C01172A10140900A70930 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -292,6 +294,14 @@
 			path = InputObjects;
 			sourceTree = "<group>";
 		};
+		B78F6D722A11C9CA00C1C02A /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				B78F6D732A11C9EE00C1C02A /* AsyncCircleImage.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		B79C01042A10140800A70930 = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +325,7 @@
 		B79C010F2A10140800A70930 /* RickAndMortyLib */ = {
 			isa = PBXGroup;
 			children = (
+				B78F6D722A11C9CA00C1C02A /* ReusableViews */,
 				B7C8C0B52A11B41E005F113A /* Coordinator */,
 				B777B22D2A118A53004EA0DE /* Utils */,
 				B79C01582A102DBA00A70930 /* Models */,
@@ -591,6 +602,7 @@
 				B777B25F2A118C64004EA0DE /* CharacterFragment.graphql.swift in Sources */,
 				B7C8C0B02A11AFC7005F113A /* CharacterDetailView.swift in Sources */,
 				B777B2722A118C64004EA0DE /* FilterEpisode.graphql.swift in Sources */,
+				B78F6D742A11C9EE00C1C02A /* AsyncCircleImage.swift in Sources */,
 				B7C8C0AB2A11A2A0005F113A /* FiltersView.swift in Sources */,
 				B79C015E2A1032B800A70930 /* Location.swift in Sources */,
 				B7C8C0B92A11B461005F113A /* NavigationRouter.swift in Sources */,
@@ -699,7 +711,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -753,7 +765,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

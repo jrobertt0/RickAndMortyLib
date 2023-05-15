@@ -13,40 +13,41 @@ struct CharactersView: View {
     @EnvironmentObject var coordinator: Coordinator<MainRouter>
     
     var body: some View {
-        NavigationView {
-            VStack {
-                switch viewModel.stateStatus {
-                case .loading:
-                    ProgressView()
-                case .error:
-                    Text("Unable to get characters")
-                case .noData:
-                    Text("There's no characters to show")
-                case .ready:
-                    VStack {
-                        List(viewModel.characters, id: \.id) { value in
-                            CharacterRowView(character: value).onTapGesture {
-                                coordinator.show(.characterDetail(character: Character.init(example: true)))
-                            }
+        VStack {
+            switch viewModel.stateStatus {
+            case .loading:
+                ProgressView()
+            case .error:
+                Text("Unable to get characters")
+            case .noData:
+                Text("There's no characters to show")
+            case .ready:
+                VStack {
+                    List(viewModel.characters, id: \.id) { value in
+                        CharacterRowView(character: value).onTapGesture {
+                            coordinator.show(.characterDetail(character: value))
                         }
-                        FiltersView()
                     }
+                    FiltersView(filters: $viewModel.filters)
                 }
-            }.onAppear(
-                perform: {
-                    viewModel.fetchCharacters()
-                }
-            )
-            .navigationTitle("Characters")
-        }
+            }
+        }.onAppear(
+            perform: {
+                viewModel.fetchCharacters()
+            }
+        )
+        .navigationTitle("Characters")
         .searchable(text: $viewModel.searchText)
         .onChange(
             of: viewModel.searchText,
             perform: { _ in
                 viewModel.fetchCharacters()
             }
-        )
-        
+        ).onChange(
+            of: viewModel.filters
+        ) { _ in
+            viewModel.fetchCharacters()
+        }
     }
 }
 
