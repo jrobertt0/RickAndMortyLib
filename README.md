@@ -1,6 +1,7 @@
 # RickAndMortyLib
 An iOS app to show Rick &amp; Morty library
-In this app,  you will see every character that appeared in the show on an infinite scroll list and when you select one character, you can also filter the list by typing in the search bar or using the dedicated filters for that placed at the bottom of the page.
+
+In this app, you will see every character that appeared in the show on an infinite scroll list you can filter it by typing in the search bar or using the dedicated filters placed at the bottom of the page.
 
 <img src="https://github.com/jrobertt0/RickAndMortyLib/assets/47159063/4ca6e5c5-3c3e-4f60-a9fe-099df8b23ae8" width="300">
 <img src="https://github.com/jrobertt0/RickAndMortyLib/assets/47159063/becf74ea-0d0a-49ba-83b6-44abdaba91ae" width="300">
