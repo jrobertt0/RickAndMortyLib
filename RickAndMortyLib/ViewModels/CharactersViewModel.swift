@@ -32,7 +32,6 @@ struct FilterState: Equatable {
     
     func fetchCharacters(resetPage: Bool = true) -> Void {
         if resetPage {
-            print("Aquiiii")
             currentPage = 1
             stateStatus = .loading
         } else {
@@ -70,13 +69,6 @@ struct FilterState: Equatable {
                             }
                            
                             self?.currentPage += 1
-                            
-                            
-                            print("page")
-                            print((self?.currentPage ?? 2) - 1)
-                            print("count")
-                            print(self?.characters.count ?? 0)
-                            
 
                             break
                         case .failure(let error):

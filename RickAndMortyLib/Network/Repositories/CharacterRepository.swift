@@ -31,7 +31,7 @@ public class CharacterRepository: CharacterRepositoryProtocol {
         .compactMap(\.characters?.results)
         .flatMap{
             Just(
-                $0.map{ data in Character(from: data) }
+                $0.map{ data in Character(fromList: data) }
             )
         }
         .eraseToAnyPublisher()

@@ -31,7 +31,7 @@ class LocationRepository: LocationRepositoryProtocol {
         .compactMap(\.locations?.results)
         .flatMap{
             Just(
-                $0.map{ data in Location(from: data) }
+                $0.map{ data in Location(fromBase: data) }
             )
         }
         .eraseToAnyPublisher()

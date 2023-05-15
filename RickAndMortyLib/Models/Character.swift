@@ -19,6 +19,7 @@ protocol CharacterBase {
 extension API.GetCharactersQuery.Data.Characters.Result: CharacterBase {}
 extension API.GetLocationQuery.Data.Location.Resident: CharacterBase {}
 extension API.GetEpisodeQuery.Data.Episode.Character: CharacterBase {}
+extension API.GetCharacterQuery.Data.Character: CharacterBase {}
 
 public class Character: Equatable{
     public static func == (lhs: Character, rhs: Character) -> Bool {
@@ -37,45 +38,44 @@ public class Character: Equatable{
     var type: String?
     
     init(from character: API.GetCharacterQuery.Data.Character) {
-        self.id = character.id
-        self.episode = character.episode.filter{ $0 != nil }.map{ Episode(from: $0!) }
-        self.gender = character.gender
-        self.image = character.image
-        
+        assignValues(character: character)
+        self.type = character.type
+        self.episode = character.episode.filter{ $0 != nil }.map{ Episode(fromBase: $0!) }
         if let location = character.location {
-            self.location = Location(from: location)
+            self.location = Location(fromBase: location)
         }
         if let origin = character.origin {
-            self.origin = Location(from: origin)
+            self.origin = Location(fromBase: origin)
         }
-        
-        self.name = character.name
-        self.species = character.species
-        self.status = character.status
-        self.type = character.type
     }
     
-    init(from character: CharacterBase?) {
+    init(fromBase character: CharacterBase?) {
+        assignValues(character: character)
+    }
+    
+    init(fromList character: API.GetCharactersQuery.Data.Characters.Result?) {
+        assignValues(character: character)
+        self.location = Location(fromBase: character?.location)
+    }
+    
+    init(example: Bool) {
+        if example {
+            self.id = "1"
+            self.gender = "Male"
+            self.image = "https://rickandmortyapi.com/api/character/avatar/19.jpeg"
+            self.name = "Rick"
+            self.species = "Unknown"
+            self.status = "unknown"
+            self.type = "Unknown"
+        }
+    }
+    
+    func assignValues(character: CharacterBase?){
         self.id = character?.id
         self.name = character?.name
         self.gender = character?.gender
         self.species = character?.species
         self.status = character?.status
         self.image = character?.image
-    }
-    
-    init(example: Bool) {
-        if example {
-            self.id = "1"
-//            self.episode = [Episode(example: true)]
-            self.gender = "Male"
-            self.image = "https://rickandmortyapi.com/api/character/avatar/19.jpeg"
-            self.name = "Rick"
-//            self.location = Location(example: true)
-//            self.origin = Location(example: true)
-            self.species = "Unknown"
-            self.status = "unknown"
-            self.type = "Unknown"
-        }
     }
 }

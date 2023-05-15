@@ -16,6 +16,8 @@ struct LocationDetailView: View {
             Text("\(title) ")
             Spacer()
             Text(value ?? "Unknown")
+                .fontWeight(.light)
+                .foregroundColor(.gray)
         }
     }
     

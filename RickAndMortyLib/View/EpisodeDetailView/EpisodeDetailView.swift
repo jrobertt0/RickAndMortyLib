@@ -16,6 +16,8 @@ struct EpisodeDetailView: View {
             Text("\(title) ")
             Spacer()
             Text(value ?? "Unknown")
+                .fontWeight(.light)
+                .foregroundColor(.gray)
         }
     }
     

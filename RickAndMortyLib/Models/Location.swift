@@ -16,8 +16,14 @@ protocol LocationBase {
 extension API.GetLocationsQuery.Data.Locations.Result: LocationBase {}
 extension API.GetCharacterQuery.Data.Character.Location: LocationBase {}
 extension API.GetCharacterQuery.Data.Character.Origin: LocationBase {}
+extension API.GetLocationQuery.Data.Location: LocationBase {}
+extension API.GetCharactersQuery.Data.Characters.Result.Location: LocationBase {}
 
-struct Location: Equatable {
+class Location: Equatable {
+    static func == (lhs: Location, rhs: Location) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     var id: String?
     var dimension: String?
     var name: String?
@@ -25,19 +31,15 @@ struct Location: Equatable {
     var type: String?
     
     init(from location: API.GetLocationQuery.Data.Location) {
-        self.id = location.id
-        self.dimension = location.dimension
-        self.name = location.name
+        assignValues(location: location)
         self.residents = location.residents.filter {$0 != nil}.map({ resident in
-          return Character(from: resident!)
+          return Character(fromBase: resident!)
         })
         self.type = location.type
     }
     
-    init(from location: LocationBase?) {
-        self.id = location?.id
-        self.dimension = location?.dimension
-        self.name = location?.name
+    init(fromBase location: LocationBase?) {
+        assignValues(location: location)
     }
     
     init(example: Bool) {
@@ -48,5 +50,11 @@ struct Location: Equatable {
             self.residents = [Character(example: true)]
             self.type = "Unknown"
         }
+    }
+    
+    func assignValues(location: LocationBase?) {
+        self.id = location?.id
+        self.dimension = location?.dimension
+        self.name = location?.name
     }
 }

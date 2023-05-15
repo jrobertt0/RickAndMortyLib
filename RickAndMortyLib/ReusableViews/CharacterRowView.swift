@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CharacterRowView: View {
     var character: Character
+    var showNavIcon: Bool = false
     
     var body: some View {
         HStack{
@@ -19,7 +20,13 @@ struct CharacterRowView: View {
             
             VStack(alignment: .leading) {
                 Text(character.name ?? "Unknown").font(.body)
-                Text(character.gender ?? "Unknown").font(.caption).foregroundColor(.gray)
+                if let gender = character.gender {
+                    Text(gender).font(.caption).foregroundColor(.gray)
+                }
+                
+                if let location = character.location?.name {
+                    Text(location).font(.caption).foregroundColor(.gray)
+                }
             }
             
             Spacer()
@@ -49,6 +56,14 @@ struct CharacterRowView: View {
                     }
                     
                 }
+            }
+            
+            if showNavIcon {
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 5, height: 8)
+                    .foregroundColor(.gray.opacity(0.8))
+                    .padding(.leading, 5)
             }
 
         }

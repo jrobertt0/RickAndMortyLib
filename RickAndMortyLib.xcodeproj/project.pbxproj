@@ -228,6 +228,7 @@
 				B777B2352A118C64004EA0DE /* CharacterQueries.graphql */,
 				B777B2362A118C64004EA0DE /* EpisodeQueries.graphql */,
 				B777B2372A118C64004EA0DE /* LocationQueries.graphql */,
+				B777B2392A118C64004EA0DE /* Schema.graphqls */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -235,7 +236,6 @@
 		B777B2382A118C64004EA0DE /* Schema */ = {
 			isa = PBXGroup;
 			children = (
-				B777B2392A118C64004EA0DE /* Schema.graphqls */,
 				B777B23A2A118C64004EA0DE /* schema.json */,
 			);
 			path = Schema;

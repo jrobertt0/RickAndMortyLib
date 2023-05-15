@@ -28,7 +28,7 @@ struct CharactersView: View {
                 List {
                     
                     ForEach(viewModel.characters, id: \.id) { value in
-                        CharacterRowView(character: value).onTapGesture {
+                        CharacterRowView(character: value, showNavIcon: true).onTapGesture {
                             coordinator.show(.characterDetail(id: value.id!))
                         }.onAppear {
                             if value.id == viewModel.characters.last?.id && viewModel.stateStatus != .loadingMoreItems {

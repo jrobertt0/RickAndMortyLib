@@ -31,7 +31,7 @@ class EpisodeRepository: EpisodeRepositoryProtocol {
         .compactMap(\.episodes?.results)
         .flatMap{
             Just(
-                $0.map{ data in Episode(from: data) }
+                $0.map{ data in Episode(fromBase: data) }
             )
         }
         .eraseToAnyPublisher()

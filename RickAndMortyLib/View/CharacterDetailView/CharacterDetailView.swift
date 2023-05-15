@@ -13,11 +13,20 @@ struct CharacterDetailView: View {
     
     @EnvironmentObject var coordinator: Coordinator<MainRouter>
     
-    @ViewBuilder func buildInfoRow(title: String, value: String?) -> some View {
+    @ViewBuilder func buildInfoRow(title: String?, value: String?, showNavIcon: Bool = false) -> some View {
         HStack {
-            Text("\(title) ")
+            Text("\(title ?? "Unknown") ")
             Spacer()
             Text(value ?? "Unknown")
+                .fontWeight(.light)
+                .foregroundColor(.gray)
+            if showNavIcon {
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 5, height: 8)
+                    .foregroundColor(.gray.opacity(0.8))
+                    .padding(.leading, 5)
+            }
         }
     }
     
@@ -25,11 +34,13 @@ struct CharacterDetailView: View {
         Section(header: Text(title)) {
             buildInfoRow(
                 title: "Place",
-                value: location?.name
+                value: location?.name,
+                showNavIcon: true
             )
             buildInfoRow(
                 title: "Dimension",
-                value: location?.dimension
+                value: location?.dimension,
+                showNavIcon: true
             )
         }.onTapGesture {
             coordinator.show(.locationDetail(id: location?.id ?? ""))
@@ -83,11 +94,11 @@ struct CharacterDetailView: View {
                     
                     Section(header: Text("Episode List")) {
                         List(viewModel.character?.episode ?? [], id: \.id) { episode in
-                            HStack {
-                                Text("\(episode.name ?? "") ")
-                                Spacer()
-                                Text(episode.episode ?? "Unknown")
-                            }.onTapGesture {
+                            buildInfoRow(
+                                title: episode.name,
+                                value: episode.episode,
+                                showNavIcon: true
+                            ).onTapGesture {
                                 coordinator.show(.episodeDetail(id: episode.id ?? ""))
                             }
                         }
